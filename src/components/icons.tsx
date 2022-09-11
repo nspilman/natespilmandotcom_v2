@@ -1,9 +1,8 @@
-import PropTypes from "prop-types";
 import React from "react";
-import linkedInImg from "../../assets/img/linkedin@2x.png";
-import twitterImg from "../../assets/img/twitter@2x.png";
-import githubImg from "../../assets/img/github@2x.png";
-import instagramImg from "../../assets/img/instagram@2x.png";
+import linkedInImg from "../../src/assets/img/linkedin@2x.png";
+import twitterImg from "../../src/assets/img/twitter@2x.png";
+import githubImg from "../../src/assets/img/github@2x.png";
+import instagramImg from "../../src/assets/img/instagram@2x.png";
 import Link from "next/link";
 import Image from "next/image";
 

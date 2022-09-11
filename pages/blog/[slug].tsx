@@ -3,15 +3,12 @@ import Link from "next/link";
 import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next/types";
 import ContentPageWrapper from "../../src/components/contentPageWrapper";
 import formattedDateString from "../../utils/formattedDateString";
-import {
-  getAllSlugs,
-  getNeighbors,
-  getPostBySlug,
-} from "../../utils/getBlogPostsFromMarkdown";
-import Blog from "../../src/types/blog";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { getContentFromMarkdown } from "../../utils/getContentFromMarkdown";
+import { ContentType } from "../../data/content";
+import { Content } from "../../src/types/content";
 
 const StyledPost = styled.article`
   padding: 5rem 3rem;
@@ -30,9 +27,9 @@ const StyledPostBody = styled.article`
 `;
 
 interface StaticProps {
-  post: Blog;
-  previous: Blog | null;
-  next: Blog | null;
+  post: Content;
+  previous: Content | null;
+  next: Content | null;
 }
 
 const LandingSSG: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
@@ -44,13 +41,10 @@ const LandingSSG: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
 };
 
 export const Post = ({ post, previous, next }: StaticProps) => {
-  // const { next, previous } = pageContext
   const {
     frontmatter: { title, description, date },
     html,
   } = post;
-
-  console.log({ previous, next });
 
   return (
     <ContentPageWrapper>
@@ -112,9 +106,13 @@ export const Post = ({ post, previous, next }: StaticProps) => {
 
 export const getStaticProps: GetStaticProps<StaticProps> = async (props) => {
   const params = props.params;
+  const { getBySlug } = getContentFromMarkdown(ContentType.Blog);
 
-  const post = getPostBySlug((params?.slug || "") as string);
+  const post = getBySlug((params?.slug || "") as string);
+  const { getNeighbors } = getContentFromMarkdown(ContentType.Blog);
+
   const { previous, next } = getNeighbors((params?.slug || "") as string);
+
   return {
     props: {
       post,
@@ -125,7 +123,9 @@ export const getStaticProps: GetStaticProps<StaticProps> = async (props) => {
 };
 
 export async function getStaticPaths() {
-  const allSlugs = getAllSlugs();
+  const { getAllFilenames } = getContentFromMarkdown(ContentType.Blog);
+
+  const allSlugs = getAllFilenames();
   const paths = allSlugs.map((slug) => ({
     params: {
       slug: slug.replace(".md", ""),
