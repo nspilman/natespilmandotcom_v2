@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import formattedDateString from "../../utils/formattedDateString";
+import { formatDate } from "../../utils/date";
 import { Content } from "../types/content";
 
 const Post = ({ post }: { post: Content }) => {
@@ -12,7 +12,7 @@ const Post = ({ post }: { post: Content }) => {
         <h3>{title}</h3>
       </Link>
 
-      <p style={{ color: "white" }}>{formattedDateString(date)}</p>
+      <p style={{ color: "white" }}>{formatDate(date)}</p>
       <p style={{ color: "white" }}>{description}</p>
       <p className="tags">
         {tags?.map((tag) => (

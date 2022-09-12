@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next/types";
 import ContentPageWrapper from "../../src/components/contentPageWrapper";
-import formattedDateString from "../../utils/formattedDateString";
+import { formatDate } from "../../utils/date";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -66,7 +66,7 @@ export const Post = ({ post, previous, next }: StaticProps) => {
               <h2 id="post-title">{title}</h2>
               <p>{description}</p>
               <time className="published" dateTime={date}>
-                {formattedDateString(date)}
+                {formatDate(date)}
               </time>
             </header>
             <ReactMarkdown
