@@ -58,7 +58,7 @@ export const getContentFromMarkdown = (contentType: ContentType) => {
   };
 
   function getAll() {
-    const slugs = getAllFilenames();
+    const slugs = getAllFilenames().filter((slug) => slug !== ".DS_Store");
     const content = slugs.map((slug) => getBySlug(slug));
     content.sort(sort);
 

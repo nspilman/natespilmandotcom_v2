@@ -9,6 +9,7 @@ import React, { ReactNode } from "react";
 
 import Icons from "./icons";
 import Link from "next/link";
+import Script from "next/script";
 
 type LayoutProps = {
   children: ReactNode;
@@ -18,6 +19,18 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <>
       <div id="app">
+        <Script
+          async
+          id="google-tag-manager"
+          src="https://www.googletagmanager.com/gtag/js?id=UA-136137654-1"
+        ></Script>
+        <Script id="config-google-analytics">
+          {`window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-136137654-1');`}
+        </Script>
         <header id="header">
           <div className="menu-wrap">
             <input type="checkbox" className="toggler" />

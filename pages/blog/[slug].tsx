@@ -125,7 +125,7 @@ export const getStaticProps: GetStaticProps<StaticProps> = async (props) => {
 export async function getStaticPaths() {
   const { getAllFilenames } = getContentFromMarkdown(ContentType.Blog);
 
-  const allSlugs = getAllFilenames();
+  const allSlugs = getAllFilenames().filter((slug) => slug !== ".DS_Store.md");
   const paths = allSlugs.map((slug) => ({
     params: {
       slug: slug.replace(".md", ""),
