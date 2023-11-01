@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           <div className="menu-wrap">
             <input type="checkbox" className="toggler" />
             <div className="hamburger">
-              <div></div>
+              <div>X</div>
             </div>
             <div className="menu">
               <div>
